@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<script>
+    var wonData = @Html.Raw(Json.Serialize(Model.TeamStatistics.Select(team => team.Won).ToList()));
+    var lostData = @Html.Raw(Json.Serialize(Model.TeamStatistics.Select(team => team.Lost).ToList()));
+    var labels = @Html.Raw(Json.Serialize(Model.TeamStatistics.Select(team => team.Name).ToList()));
+</script>
+
+
+<div class="text-center">
+    
+    <h1>NBA Players</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Stadium</th>
+                    <th>Logo</th>
+                    <th>Played</th>
+                    <th id="wonHeader">Won</th>
+                    <th id="lostHeader">Lost</th>
+                    <th>Played Home</th>
+                    <th>Played Away</th>
+                    <th>Biggest Win</th>
+                    <th>Biggest Loss</th>
+                    <th>Last Game Stadium</th>
+                    <th>Last Game Date</th>
+                    <th>MVP</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.TeamStatistics)
+                {
+                    <tr>
+                        
+                        <td>@player.Name</td>
+                        <td>@player.Stadium</td>
+                        <td>
+                            <a href="@player.URL" target="_blank"><img src="@player.Logo" width="80px" height="80px" alt="logo"></a>
+                        </td>
+                        <td>@player.Played</td>
+                        <td>@player.Won</td>
+                        <td>@player.Lost</td>
+                        <td>@player.PlayedHome</td>
+                        <td>@player.PlayedAway</td>
+                        <td>@player.BiggestWin</td>
+                        <td>@player.BiggestLoss</td>
+                        <td>@player.LastGameStadium</td>
+                        <td>@player.LastGameDate</td>
+                        <td>@player.MVP</td>
+                        
+                    </tr>
+                }
+            </tbody>
+    </table>
+
+    <canvas id="teamChart" width="400" height="200"></canvas>
+
+
+</div>
+
+
